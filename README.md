@@ -4,6 +4,12 @@
 
 [Back to Portfolio](https://github.com/KSWISHA9)
 
+![Microsoft Sentinel](https://img.shields.io/badge/Microsoft%20Sentinel-0078D4?style=for-the-badge&logo=microsoftazure&logoColor=white)
+![KQL](https://img.shields.io/badge/KQL-005A9C?style=for-the-badge&logo=microsoftazure&logoColor=white)
+![Microsoft Entra ID](https://img.shields.io/badge/Microsoft%20Entra%20ID-0078D4?style=for-the-badge&logo=microsoft&logoColor=white)
+![MITRE ATT&CK](https://img.shields.io/badge/MITRE%20ATT%26CK-T1110-DC2626?style=for-the-badge&logo=mitre&logoColor=white)
+![SOC Engineering](https://img.shields.io/badge/SOC%20Engineering-111827?style=for-the-badge&logo=securityscorecard&logoColor=white)
+
 ## Executive Summary
 
 This project demonstrates the deployment of Microsoft Sentinel as the enterprise SIEM for OmniVerse. Microsoft Entra ID authentication logs were ingested into a Log Analytics workspace, custom KQL detections were developed and validated, analytics rules were configured with MITRE ATT&CK mapping, and a simulated brute-force attack successfully generated a Sentinel incident that was investigated from detection through evidence analysis.
