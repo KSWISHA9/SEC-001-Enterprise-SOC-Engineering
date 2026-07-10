@@ -1,4 +1,4 @@
-﻿# SEC-001 - Enterprise SOC Engineering with Microsoft Sentinel
+# SEC-001 - Enterprise SOC Engineering with Microsoft Sentinel
 
 > OmniVerse Enterprise Engineering Portfolio
 
@@ -65,73 +65,73 @@ flowchart LR
 
 ## Walkthrough
 
-![Resource Group](screenshots/01-resource-group_png.png)
+![Resource Group](screenshots/01-resource-group_png.png.png)
 
 Resource group RG-SEC-001-SOC created in East US as the container for the Log Analytics workspace and Sentinel deployment.
 
 ---
 
-![Microsoft Sentinel Added](screenshots/03-microsoft-sentinel-overview_png.png)
+![Microsoft Sentinel Added](screenshots/03-microsoft-sentinel-overview_png.png.png)
 
 Microsoft Sentinel successfully added to the workspace. Free trial activated with 10GB/day ingestion and the full SIEM and SOAR capability stack enabled.
 
 ---
 
-![Content Hub](screenshots/04-entra-id-content-hub_png.png)
+![Content Hub](screenshots/04-entra-id-content-hub_png.png.png)
 
 Microsoft Entra ID solution installed from Content Hub â€” 88 content items including 73 analytics rule templates, 3 workbooks, 11 playbooks, and the Entra ID data connector.
 
 ---
 
-![Diagnostic Settings](screenshots/06-entra-diagnostic-settings_png.png)
+![Diagnostic Settings](screenshots/06-entra-diagnostic-settings_png.png.png)
 
 Entra ID diagnostic settings configured to stream SigninLogs, AuditLogs, NonInteractiveUserSignInLogs, ServicePrincipalSignInLogs, UserRiskEvents, RiskyUsers, and MicrosoftGraphActivityLogs to the Sentinel workspace.
 
 ---
 
-![KQL Ingestion Validation](screenshots/08-kql-ingestion-validation_png.png)
+![KQL Ingestion Validation](screenshots/08-kql-ingestion-validation_png.png.png)
 
 Log ingestion confirmed via KQL - SigninLogs returning records with a recent timestamp, validating live data flow from Entra ID into the Sentinel workspace before building detection rules.
 
 ---
 
-![Brute Force KQL](screenshots/12-brute-force-summary_png.png)
+![Brute Force KQL](screenshots/12-brute-force-summary_png.png.png)
 
 Brute force investigation query confirming avery.stone accumulated 4 failed authentication attempts against Azure Portal using ResultType 50126 - crossing the threshold defined in the detection rule.
 
 ---
 
-![Analytics Rule General](screenshots/17-analytics-rule-general_png.png)
+![Analytics Rule General](screenshots/17-analytics-rule-general_png.png.png)
 
 Custom analytics rule wizard - SEC-001 Repeated Failed Sign-ins configured with Medium severity, MITRE ATT&CK T1110 technique mapped, and Enabled status set before deployment.
 
 ---
 
-![Analytics Rule Query Validation](screenshots/18-analytics-rule-query-validation_png.png)
+![Analytics Rule Query Validation](screenshots/18-analytics-rule-query-validation_png.png.png)
 
 Detection KQL validated in Advanced hunting before rule deployment - avery.stone returned with FailedAttempts, FirstFailure, LastFailure, and TargetApplications confirming the logic produces the expected output.
 
 ---
 
-![Custom Rule Created](screenshots/22-custom-rule-created_png.png)
+![Custom Rule Created](screenshots/22-custom-rule-created_png.png.png)
 
 SEC-001 analytics rule saved and confirmed active - Medium severity, Credential Access tactic, T1110 technique, Scheduled type, running every 5 minutes.
 
 ---
 
-![Sentinel Incident](screenshots/12-sentinel-incident-overview_png.png)
+![Sentinel Incident](screenshots/12-sentinel-incident-overview_png.png.png)
 
 Sentinel Incident ID 1 automatically generated - SEC-001 Repeated Failed Sign-ins, Medium severity, Active status. Entity graph populated with avery.stone as the linked account.
 
 ---
 
-![Entity Investigation](screenshots/13-user-entity-investigation_png.png)
+![Entity Investigation](screenshots/13-user-entity-investigation_png.png.png)
 
 Incident investigation confirming the analytics rule details, entity graph, and the detection narrative - a user account generating four or more invalid-password failures within a ten-minute period mapped to T1110 Brute Force.
 
 ---
 
-![Incident Evidence](screenshots/14-incident-evidence_png.png)
+![Incident Evidence](screenshots/14-incident-evidence_png.png.png)
 
 Final incident evidence - 6 failed attempts for avery.stone between 12:46 and 12:47 AM targeting Azure Portal. MITRE ATT&CK T1110 Credential Access confirmed. Investigation complete.
 
@@ -232,3 +232,4 @@ SigninLogs
 ---
 
 Created by **Keshawn Lynch**
+
