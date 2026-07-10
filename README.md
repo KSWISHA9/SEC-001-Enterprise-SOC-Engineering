@@ -20,17 +20,23 @@ This project demonstrates the deployment of Microsoft Sentinel as the enterprise
 | Generated Incidents | 1 |
 | Completed Investigations | 1 |
 
+## Evidence Links
+
+- [View all screenshots](screenshots/)
+- [Review KQL hunting queries](kql/)
+- [Review the scheduled analytics rule](analytics-rules/SEC-001-Repeated-Failed-Signins.kql)
+
 ---
 
 ## Overview
 
-Microsoft Sentinel SOC deployment with real log ingestion, KQL threat detection, custom analytics rules mapped to MITRE ATT&CK, and end-to-end incident investigation against the OmniVerse Microsoft Entra ID tenant.
+Microsoft Sentinel SOC deployment with Entra ID log ingestion, KQL threat detection, custom analytics rules mapped to MITRE ATT&CK, and end-to-end incident investigation in the OmniVerse lab environment.
 
 ---
 
 ## What Was Built
 
-A cloud-native SOC environment built on Microsoft Sentinel, ingesting live Microsoft Entra ID sign-in logs into a Log Analytics workspace. A custom scheduled analytics rule was built to detect repeated failed sign-in attempts (brute force), mapped to MITRE ATT&CK T1110. The rule fired, generated a Sentinel incident, and the full investigation workflow was executed and documented.
+A cloud-native SOC environment built on Microsoft Sentinel, ingesting Microsoft Entra ID sign-in logs into a Log Analytics workspace. A custom scheduled analytics rule was built to detect repeated failed sign-in attempts (brute force), mapped to MITRE ATT&CK T1110. The rule fired, generated a Sentinel incident, and the full investigation workflow was executed and documented.
 
 ---
 
@@ -63,75 +69,88 @@ flowchart LR
 
 ---
 
-## Walkthrough
+## What This Proves
 
-![Resource Group](screenshots/01-resource-group_png.png.png)
+- Deployed Microsoft Sentinel on top of a Log Analytics workspace.
+- Connected Microsoft Entra ID diagnostic logs for SOC visibility.
+- Built KQL queries for ingestion validation, failed sign-in investigation, and brute-force detection.
+- Created a custom scheduled analytics rule mapped to MITRE ATT&CK T1110.
+- Generated and investigated a Sentinel incident with account entity evidence.
+- Documented detection logic, triage context, lessons learned, and future SOC enhancements.
+
+---
+
+## Evidence Gallery
+
+The screenshots below show the SOC build, detection engineering workflow, and incident investigation evidence. The complete evidence set is available in the [screenshots folder](screenshots/).
+
+![Resource Group](screenshots/01-resource-group.png.png)
 
 Resource group RG-SEC-001-SOC created in East US as the container for the Log Analytics workspace and Sentinel deployment.
 
 ---
 
-![Microsoft Sentinel Added](screenshots/03-microsoft-sentinel-overview_png.png.png)
+![Microsoft Sentinel Added](screenshots/03-microsoft-sentinel-overview.png.png)
 
-Microsoft Sentinel successfully added to the workspace. Free trial activated with 10GB/day ingestion and the full SIEM and SOAR capability stack enabled.
-
----
-
-![Content Hub](screenshots/04-entra-id-content-hub_png.png.png)
-
-Microsoft Entra ID solution installed from Content Hub â€” 88 content items including 73 analytics rule templates, 3 workbooks, 11 playbooks, and the Entra ID data connector.
+Microsoft Sentinel enabled on the workspace with the SIEM and SOAR capability stack available for detection and investigation workflows.
 
 ---
 
-![Diagnostic Settings](screenshots/06-entra-diagnostic-settings_png.png.png)
+![Content Hub](screenshots/04-entra-id-content-hub.png.png)
+
+Microsoft Entra ID solution installed from Content Hub, including analytics rule templates, workbooks, playbooks, and the Entra ID data connector.
+
+---
+
+![Diagnostic Settings](screenshots/06-entra-diagnostic-settings.png.png)
 
 Entra ID diagnostic settings configured to stream SigninLogs, AuditLogs, NonInteractiveUserSignInLogs, ServicePrincipalSignInLogs, UserRiskEvents, RiskyUsers, and MicrosoftGraphActivityLogs to the Sentinel workspace.
 
 ---
 
-![KQL Ingestion Validation](screenshots/08-kql-ingestion-validation_png.png.png)
+![KQL Ingestion Validation](screenshots/08-kql-ingestion-validation.png.png)
 
-Log ingestion confirmed via KQL - SigninLogs returning records with a recent timestamp, validating live data flow from Entra ID into the Sentinel workspace before building detection rules.
+Log ingestion confirmed via KQL - SigninLogs returning records with a recent timestamp, validating data flow from Entra ID into the Sentinel workspace before building detection rules.
 
 ---
 
-![Brute Force KQL](screenshots/12-brute-force-summary_png.png.png)
+![Brute Force KQL](screenshots/12-brute-force-summary.png.png)
 
 Brute force investigation query confirming avery.stone accumulated 4 failed authentication attempts against Azure Portal using ResultType 50126 - crossing the threshold defined in the detection rule.
 
 ---
 
-![Analytics Rule General](screenshots/17-analytics-rule-general_png.png.png)
+![Analytics Rule General](screenshots/17-analytics-rule-general.png.png)
 
 Custom analytics rule wizard - SEC-001 Repeated Failed Sign-ins configured with Medium severity, MITRE ATT&CK T1110 technique mapped, and Enabled status set before deployment.
 
 ---
 
-![Analytics Rule Query Validation](screenshots/18-analytics-rule-query-validation_png.png.png)
+![Analytics Rule Query Validation](screenshots/18-analytics-rule-query-validation.png.png)
 
 Detection KQL validated in Advanced hunting before rule deployment - avery.stone returned with FailedAttempts, FirstFailure, LastFailure, and TargetApplications confirming the logic produces the expected output.
 
 ---
 
-![Custom Rule Created](screenshots/22-custom-rule-created_png.png.png)
+![Custom Rule Created](screenshots/22-custom-rule-created.png.png)
 
 SEC-001 analytics rule saved and confirmed active - Medium severity, Credential Access tactic, T1110 technique, Scheduled type, running every 5 minutes.
 
 ---
 
-![Sentinel Incident](screenshots/12-sentinel-incident-overview_png.png.png)
+![Sentinel Incident](screenshots/12-sentinel-incident-overview.png.png)
 
 Sentinel Incident ID 1 automatically generated - SEC-001 Repeated Failed Sign-ins, Medium severity, Active status. Entity graph populated with avery.stone as the linked account.
 
 ---
 
-![Entity Investigation](screenshots/13-user-entity-investigation_png.png.png)
+![Entity Investigation](screenshots/13-user-entity-investigation.png.png)
 
 Incident investigation confirming the analytics rule details, entity graph, and the detection narrative - a user account generating four or more invalid-password failures within a ten-minute period mapped to T1110 Brute Force.
 
 ---
 
-![Incident Evidence](screenshots/14-incident-evidence_png.png.png)
+![Incident Evidence](screenshots/14-incident-evidence.png.png)
 
 Final incident evidence - 6 failed attempts for avery.stone between 12:46 and 12:47 AM targeting Azure Portal. MITRE ATT&CK T1110 Credential Access confirmed. Investigation complete.
 
@@ -169,7 +188,7 @@ SigninLogs
 | [03-brute-force-summary.kql](kql/03-brute-force-summary.kql) | Summarizes failed attempts by user and app |
 | [04-authentication-methods.kql](kql/04-authentication-methods.kql) | Breaks down authentication strength distribution |
 | [05-successful-auth-timeline.kql](kql/05-successful-auth-timeline.kql) | Shows successful sign-ins with method detail |
-| [SEC-001-Repeated-Failed-Signins.kql](analytics-rules/SEC-001-Repeated-Failed-Signins.kql) | Production detection rule |
+| [SEC-001-Repeated-Failed-Signins.kql](analytics-rules/SEC-001-Repeated-Failed-Signins.kql) | Custom scheduled detection rule |
 
 ---
 
@@ -177,8 +196,8 @@ SigninLogs
 
 | Time | Event |
 |---|---|
-| Jul 9 11:39 PM | First failed sign-in attempt |
-| Jul 10 12:40 AM | Detection threshold crossed |
+| Jul 10 12:46 AM | Failed sign-in sequence observed |
+| Jul 10 12:47 AM | Detection threshold crossed |
 | Jul 10 12:47 AM | Last failure recorded |
 | Jul 10 12:56 AM | Sentinel incident automatically created |
 | Investigation | Entity confirmed, evidence reviewed, case documented |
