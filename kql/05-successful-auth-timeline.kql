@@ -1,0 +1,6 @@
+﻿// Successful Authentication Timeline
+// Shows successful sign-ins with method detail
+SigninLogs
+| where ResultType == 0
+| project TimeGenerated, UserPrincipalName, AppDisplayName, AuthenticationRequirement
+| order by TimeGenerated desc

@@ -1,0 +1,4 @@
+﻿// Authentication Methods
+// Breaks down auth requirement distribution
+SigninLogs
+| summarize Count=count() by AuthenticationRequirement

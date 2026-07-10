@@ -1,0 +1,6 @@
+﻿// Failed Authentication Investigation
+// Surfaces failed sign-in events with full context
+SigninLogs
+| where ResultType == 50126
+| project TimeGenerated, UserPrincipalName, ResultType, ResultDescription, AppDisplayName
+| order by TimeGenerated desc

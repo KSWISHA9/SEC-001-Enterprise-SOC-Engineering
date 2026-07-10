@@ -1,0 +1,4 @@
+﻿// Ingestion Validation
+// Confirms SigninLogs are flowing into the workspace
+SigninLogs
+| summarize Records=count(), LatestEvent=max(TimeGenerated)

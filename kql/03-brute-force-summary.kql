@@ -1,0 +1,6 @@
+﻿// Brute Force Summary
+// Summarizes failed attempts by user and application
+SigninLogs
+| where ResultType == 50126
+| summarize FailedAttempts=count() by UserPrincipalName, AppDisplayName
+| order by FailedAttempts desc
